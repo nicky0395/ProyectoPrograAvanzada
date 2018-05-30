@@ -36,6 +36,7 @@ public class GestorReserva extends UnicastRemoteObject implements Serializable,I
    
     @Override
     public void reservar(ReservaVO reserva) {
+  
        opReserva.InsertarReserva(reserva);
     }
 

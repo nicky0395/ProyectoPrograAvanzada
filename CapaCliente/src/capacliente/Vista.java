@@ -72,13 +72,12 @@ public class Vista extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             Registry registro = LocateRegistry.getRegistry();
-            InGestorReserva gestor = (InGestorReserva) registro.lookup("ServidorReservas");
-            System.out.println("Entrando al try");
-            gestor.reservar(new ReservaVO(1,1,2,2));
+            InGestorReserva gestor = (InGestorReserva) registro.lookup("ServerReservas");
+            gestor.reservar(new ReservaVO(1,1,1,2));
           
             
         } catch (Exception ex) {
-            System.out.println("Error");
+            System.out.println(ex.getMessage());
         }
 
 

@@ -17,15 +17,16 @@ import javax.swing.JOptionPane;
  * @author Mela
  */
 public class ReservaDAO { 
-      Conexion conex=new Conexion();
+ 
 
     public void InsertarReserva(ReservaVO reserva) {
         //Primero creamos la conexion
-       //Primero creamos la conexion
         PreparedStatement psInsertar;
+             Conexion conex=new Conexion();
         try {
+            System.out.println(reserva.getNumero_asiento());
             java.sql.Statement orden = conex.getConexion().createStatement();
-            psInsertar = conex.getConexion().prepareStatement("INSERT INTO reserva (cod_vuelo, cod_reserva,cod_cliente,numero_asiento)" + " values(?,?,?)");
+            psInsertar = conex.getConexion().prepareStatement("INSERT INTO reserva (cod_vuelo, cod_reserva,cod_cliente,numero_asiento)" + " values(?,?,?,?)");
 
             psInsertar.setInt(1,reserva.getCod_vuelo());
             psInsertar.setInt(2,reserva.getCod_reserva());
@@ -35,11 +36,12 @@ public class ReservaDAO {
             orden.close();
             conex.desconectar();
         } catch (SQLException ex) {
-             System.out.println("aqui");
+             System.out.println(ex.getMessage());
         }
     }
     public List obtenerAsientosOcupados(int cod_vuelo){
            List<Integer>asientosOcupados=new ArrayList<>();
+                Conexion conex=new Conexion();
         try {
             java.sql.Statement stmt = conex.getConexion().createStatement();      
             ResultSet rs = stmt.executeQuery("SELECT numero_asiento from reserva where cod_vuelo="+cod_vuelo);                     
@@ -51,7 +53,7 @@ public class ReservaDAO {
             conex.desconectar();
             return asientosOcupados;
         } catch (SQLException ex) {
-            System.out.println("aqui");
+            System.out.println(ex.getMessage());
             return null;
         }
     }
