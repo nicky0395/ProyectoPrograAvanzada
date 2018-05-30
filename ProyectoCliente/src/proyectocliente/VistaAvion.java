@@ -5,6 +5,8 @@
  */
 package proyectocliente;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author NicoleJeem
@@ -60,6 +62,30 @@ public class VistaAvion extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabel5.setText("Fecha de Nacimiento");
+
+        txtApellidoCli.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoCliKeyTyped(evt);
+            }
+        });
+
+        txtNombreCli1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreCli1KeyTyped(evt);
+            }
+        });
+
+        txtCedulaCli1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaCli1KeyTyped(evt);
+            }
+        });
+
+        txtNacionalidadCli.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNacionalidadCliKeyTyped(evt);
+            }
+        });
 
         btnRegistro.setBackground(new java.awt.Color(51, 255, 0));
         btnRegistro.setText("REGISTRARSE");
@@ -144,9 +170,97 @@ public class VistaAvion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
-        // TODO add your handling code here:
+        if(validarCed(txtCedulaCli1.getText())==false)
+                JOptionPane.showMessageDialog(null,"Cedula incorrecta");
     }//GEN-LAST:event_btnRegistroActionPerformed
 
+    private void txtNombreCli1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreCli1KeyTyped
+        char caracter = evt.getKeyChar();
+
+      // Verificar si la tecla pulsada no es un digito
+      if((Character.isDigit(caracter)))
+      {
+         evt.consume();  // ignorar el evento de teclado
+      }
+    }//GEN-LAST:event_txtNombreCli1KeyTyped
+
+    private void txtApellidoCliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoCliKeyTyped
+         char caracter = evt.getKeyChar();
+
+      // Verificar si la tecla pulsada no es un digito
+      if((Character.isDigit(caracter)))
+      {
+         evt.consume();  // ignorar el evento de teclado
+      }
+    }//GEN-LAST:event_txtApellidoCliKeyTyped
+
+    private void txtCedulaCli1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaCli1KeyTyped
+        char caracter = evt.getKeyChar();
+        if((Character.isLetter(caracter)))
+      {
+         evt.consume();  // ignorar el evento de teclado
+      }
+        if(txtCedulaCli1.getText().length()==10){
+            evt.consume();
+            
+        }
+    }//GEN-LAST:event_txtCedulaCli1KeyTyped
+
+    private void txtNacionalidadCliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNacionalidadCliKeyTyped
+          char caracter = evt.getKeyChar();
+
+      // Verificar si la tecla pulsada no es un digito
+      if((Character.isDigit(caracter)))
+      {
+         evt.consume();  // ignorar el evento de teclado
+      }
+    }//GEN-LAST:event_txtNacionalidadCliKeyTyped
+public boolean validarCed(String cedula) {
+                boolean cedulaCorrecta = false;
+
+                try {
+
+                if (cedula.length() == 10) // ConstantesApp.LongitudCedula
+                {
+                int tercerDigito = Integer.parseInt(cedula.substring(2, 3));
+                if (tercerDigito < 6) {
+                // Coeficientes de validación cédula
+                // El decimo digito se lo considera dígito verificador
+                 int[] coefValCedula = { 2, 1, 2, 1, 2, 1, 2, 1, 2 };
+                 int verificador = Integer.parseInt(cedula.substring(9,10));
+                 int suma = 0;
+                 int digito = 0;
+                for (int i = 0; i < (cedula.length() - 1); i++) {
+                 digito = Integer.parseInt(cedula.substring(i, i + 1))* coefValCedula[i];
+                 suma += ((digito % 10) + (digito / 10));
+                }
+
+                if ((suma % 10 == 0) && (suma % 10 == verificador)) {
+                 cedulaCorrecta = true;
+                }
+                else if ((10 - (suma % 10)) == verificador) {
+                 cedulaCorrecta = true;
+                } else {
+                 cedulaCorrecta = false;
+                }
+                } else {
+                cedulaCorrecta = false;
+                }
+                } else {
+                cedulaCorrecta = false;
+                }
+                } catch (NumberFormatException nfe) {
+                cedulaCorrecta = false;
+                } catch (Exception err) {
+                System.out.println("Una excepcion ocurrio en el proceso de validadcion");
+                cedulaCorrecta = false;
+                }
+
+                if (!cedulaCorrecta) {
+                System.out.println("La Cédula ingresada es Incorrecta");
+                }
+                return cedulaCorrecta;
+                }
     /**
      * @param args the command line arguments
      */

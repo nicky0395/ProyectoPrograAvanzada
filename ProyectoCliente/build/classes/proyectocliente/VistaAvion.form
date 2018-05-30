@@ -168,14 +168,26 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtApellidoCli">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtApellidoCliKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNombreCli1">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNombreCli1KeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCedulaCli1">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCedulaCli1KeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtfechNacCli">
     </Component>
     <Component class="javax.swing.JTextField" name="txtNacionalidadCli">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNacionalidadCliKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnRegistro">
       <Properties>
