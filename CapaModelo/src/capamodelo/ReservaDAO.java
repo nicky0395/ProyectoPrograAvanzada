@@ -8,7 +8,9 @@ package capamodelo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -21,22 +23,28 @@ public class ReservaDAO {
 
     public void InsertarReserva(ReservaVO reserva) {
         //Primero creamos la conexion
-        PreparedStatement psInsertar;
-             Conexion conex=new Conexion();
-        try {
-            System.out.println(reserva.getNumero_asiento());
-            java.sql.Statement orden = conex.getConexion().createStatement();
-            psInsertar = conex.getConexion().prepareStatement("INSERT INTO reserva (cod_vuelo, cod_reserva,cod_cliente,numero_asiento)" + " values(?,?,?,?)");
-            psInsertar.setInt(1,reserva.getCod_vuelo());
-            psInsertar.setInt(2,reserva.getCod_reserva());
-            psInsertar.setInt(3, reserva.getCod_cliente());
-            psInsertar.setInt(4, reserva.getNumero_asiento());
-            orden.close();
-            conex.desconectar();
-            JOptionPane.showMessageDialog(null, "Se ha registrado ok", "Exito", 1);
-        } catch (SQLException ex) {
-             System.out.println(ex.getMessage());
-        }
+       Conexion conex=new Conexion();
+       try {
+           Statement orden=conex.getConexion().createStatement();
+           orden.executeUpdate("INSERT INTO reserva (cod_reserva,numero_asiento,cod_vuelo,cod_cliente) VALUES( "
+                   +obtenerCodigoReserva()+","
+                   +reserva.getNumero_asiento()+","
+                   +reserva.getCod_vuelo()+","
+                    +reserva.getCod_cliente()+")");
+           JOptionPane.showMessageDialog(null, "Se ha registrado la reserva");
+           orden.close();
+           conex.desconectar();
+       } catch (SQLException ex) {
+           System.out.println(ex.getMessage());
+           
+       }
+   }
+    public  int obtenerCodigoReserva(){
+          List<Integer>codigos=obtenerCodigos();
+           Collections.sort(codigos,Collections.reverseOrder() );
+           System.out.println(codigos.get(0));
+          return (codigos.get(0)+1);
+        
     }
     public List obtenerAsientosOcupados(int cod_vuelo){
            List<Integer>asientosOcupados=new ArrayList<>();
@@ -51,6 +59,24 @@ public class ReservaDAO {
             stmt.close();                           
             conex.desconectar();
             return asientosOcupados;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+    }
+    public List obtenerCodigos(){
+           List<Integer>codigos=new ArrayList<>();
+                Conexion conex=new Conexion();
+        try {
+            java.sql.Statement stmt = conex.getConexion().createStatement();      
+            ResultSet rs = stmt.executeQuery("SELECT cod_reserva from reserva");                     
+            while (rs.next()) {                         
+                 codigos.add(rs.getInt(1));        
+            }
+            rs.close();                        
+            stmt.close();                           
+            conex.desconectar();
+            return codigos;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return null;
