@@ -1,16 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package capanegocio;
 
+package capanegocio;
+import  capamodelo.ReservaVO;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 /**
  *
  * @author Mela
  */
-public interface InGestorReserva {
-    public void reservar();
-    public void actualizar();
+public interface InGestorReserva extends Remote{
+    public void reservar(ReservaVO reserva) throws RemoteException;
+    public void actualizar(int cod_vuelo) throws RemoteException;
     
 }

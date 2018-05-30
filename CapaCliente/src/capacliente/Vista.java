@@ -12,6 +12,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import capamodelo.ReservaVO;
 
 /**
  *
@@ -73,9 +74,8 @@ public class Vista extends javax.swing.JFrame {
             Registry registro = LocateRegistry.getRegistry();
             InGestorReserva gestor = (InGestorReserva) registro.lookup("ServidorReservas");
             System.out.println("Entrando al try");
-            gestor.reservar(1, 1, 1, 1);
-            gestor.actualizar();
-            //System.out.println("Numero reservado: "+gestor.actualizar());
+            gestor.reservar(new ReservaVO(1,1,2,2));
+          
             
         } catch (Exception ex) {
             System.out.println("Error");

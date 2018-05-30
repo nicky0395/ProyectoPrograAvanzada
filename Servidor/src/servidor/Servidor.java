@@ -11,6 +11,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import capanegocio.GestorReserva;
 
 /**
  *
@@ -22,10 +23,14 @@ public class Servidor {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws RemoteException, MalformedURLException {
-
-        Registry registro = LocateRegistry.createRegistry(1099);
-        registro.rebind("ServidorReservas", GestorReserva.getGestor());
+        
+        Registry reg = LocateRegistry.createRegistry(1099);
+        reg.rebind("ServerReservas",(InGestorReserva) GestorReserva.getGestor());
         System.out.println("Servidor ON");
+        System.out.println("Atendiendo las peticiones...");
+        System.out.println("Pulse Enter para salir...");
+
+        
 
         // TODO code application logic here
     }

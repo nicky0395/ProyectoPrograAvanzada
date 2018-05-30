@@ -5,41 +5,42 @@
  */
 package capanegocio;
 
+import capamodelo.ReservaDAO;
+import capamodelo.ReservaVO;
 import java.beans.*;
 import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  *
  * @author Mela
  */
-public class GestorReserva implements Serializable {
+public class GestorReserva extends UnicastRemoteObject implements Serializable,InGestorReserva  {
+
+    ReservaDAO opReserva=new ReservaDAO();
     
-    public static final String PROP_SAMPLE_PROPERTY = "sampleProperty";
-    
-    private String sampleProperty;
-    
-    private PropertyChangeSupport propertySupport;
-    
-    public GestorReserva() {
-        propertySupport = new PropertyChangeSupport(this);
+    public static GestorReserva gesReserva;
+    public GestorReserva() throws RemoteException{
+      
     }
-    
-    public String getSampleProperty() {
-        return sampleProperty;
+        //Patron singleton
+    public  static GestorReserva getGestor() throws RemoteException {
+        if (gesReserva == null) {
+            gesReserva = new GestorReserva();
+        }
+
+        return gesReserva;
     }
-    
-    public void setSampleProperty(String value) {
-        String oldValue = sampleProperty;
-        sampleProperty = value;
-        propertySupport.firePropertyChange(PROP_SAMPLE_PROPERTY, oldValue, sampleProperty);
+
+   
+    @Override
+    public void reservar(ReservaVO reserva) {
+       opReserva.InsertarReserva(reserva);
     }
-    
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        propertySupport.addPropertyChangeListener(listener);
+
+    @Override
+    public void actualizar(int cod_vuelo) {
+       opReserva.obtenerAsientosOcupados(cod_vuelo);
     }
-    
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        propertySupport.removePropertyChangeListener(listener);
-    }
-    
 }

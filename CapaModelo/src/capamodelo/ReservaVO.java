@@ -7,12 +7,13 @@ package capamodelo;
 
 import java.beans.*;
 import java.io.Serializable;
+import java.rmi.Remote;
 
 /**
  *
  * @author Mela
  */
-public class ReservaVO implements Serializable {
+public class ReservaVO implements Remote, Serializable {
     
    private int cod_reserva;
    private int cod_cliente;
