@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyectoservidor;
+package capamodelo;
 
 import java.beans.Statement;
 import java.sql.Connection;
