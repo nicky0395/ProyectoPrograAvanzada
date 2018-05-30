@@ -73,9 +73,8 @@ public class Vista extends javax.swing.JFrame {
         try {
             Registry registro = LocateRegistry.getRegistry();
             InGestorReserva gestor = (InGestorReserva) registro.lookup("ServerReservas");
-            gestor.reservar(new ReservaVO(1,1,1,2));
-          
-            
+           // gestor.reservar(new ReservaVO(1,1,1,2));
+                System.out.println(gestor.actualizar(1));
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

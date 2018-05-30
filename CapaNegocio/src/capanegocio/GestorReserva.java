@@ -11,6 +11,7 @@ import java.beans.*;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 /**
  *
@@ -41,7 +42,7 @@ public class GestorReserva extends UnicastRemoteObject implements Serializable,I
     }
 
     @Override
-    public void actualizar(int cod_vuelo) {
-       opReserva.obtenerAsientosOcupados(cod_vuelo);
+    public List actualizar(int cod_vuelo) {
+       return opReserva.obtenerAsientosOcupados(cod_vuelo);
     }
 }

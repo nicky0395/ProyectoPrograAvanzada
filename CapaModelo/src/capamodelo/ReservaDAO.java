@@ -27,14 +27,13 @@ public class ReservaDAO {
             System.out.println(reserva.getNumero_asiento());
             java.sql.Statement orden = conex.getConexion().createStatement();
             psInsertar = conex.getConexion().prepareStatement("INSERT INTO reserva (cod_vuelo, cod_reserva,cod_cliente,numero_asiento)" + " values(?,?,?,?)");
-
             psInsertar.setInt(1,reserva.getCod_vuelo());
             psInsertar.setInt(2,reserva.getCod_reserva());
             psInsertar.setInt(3, reserva.getCod_cliente());
             psInsertar.setInt(4, reserva.getNumero_asiento());
-            JOptionPane.showMessageDialog(null, "Se ha registrado ok", "Exito", 1);
             orden.close();
             conex.desconectar();
+            JOptionPane.showMessageDialog(null, "Se ha registrado ok", "Exito", 1);
         } catch (SQLException ex) {
              System.out.println(ex.getMessage());
         }
