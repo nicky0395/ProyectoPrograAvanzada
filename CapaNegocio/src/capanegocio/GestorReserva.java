@@ -7,6 +7,7 @@ package capanegocio;
 
 import capamodelo.ReservaDAO;
 import capamodelo.ReservaVO;
+import capamodelo.VueloDAO;
 import java.beans.*;
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -44,5 +45,17 @@ public class GestorReserva extends UnicastRemoteObject implements Serializable,I
     @Override
     public List actualizar(int cod_vuelo) {
        return opReserva.obtenerAsientosOcupados(cod_vuelo);
+    }
+
+    @Override
+    public List obtenerVuelos() throws RemoteException {
+     VueloDAO vuelos=new VueloDAO();
+     return vuelos.obtenerVuelos();
+     
+    }
+
+    @Override
+    public List obtenerClientes() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

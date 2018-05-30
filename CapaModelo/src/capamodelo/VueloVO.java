@@ -85,6 +85,14 @@ public class VueloVO implements Serializable {
     public void setPrecio(float precio) {
         this.precio = precio;
     }
+
+    @Override
+    public String toString() {
+        
+        return "Vuelo\n" + "cod_vuelo=" + cod_vuelo + "\n cod_avion=" + cod_avion + "\norigen=" 
+                + origen + "\nfecha_salida=" + fecha_salida + "\nfecha_llegada=" 
+                + fecha_llegada + "\ndestino=" + destino + "\nprecio=" + precio ;
+    }
     
    
 }

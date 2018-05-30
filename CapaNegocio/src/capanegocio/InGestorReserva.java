@@ -11,5 +11,6 @@ import java.util.List;
 public interface InGestorReserva extends Remote{
     public void reservar(ReservaVO reserva) throws RemoteException;
     public List actualizar(int cod_vuelo) throws RemoteException;
-    
+    public List obtenerVuelos() throws RemoteException;
+    public List obtenerClientes() throws RemoteException;
 }
