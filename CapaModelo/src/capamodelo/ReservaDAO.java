@@ -35,7 +35,7 @@ public class ReservaDAO {
             orden.close();
             conex.desconectar();
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+             System.out.println("aqui");
         }
     }
     public List obtenerAsientosOcupados(int cod_vuelo){
@@ -51,7 +51,7 @@ public class ReservaDAO {
             conex.desconectar();
             return asientosOcupados;
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("aqui");
             return null;
         }
     }
